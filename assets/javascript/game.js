@@ -272,7 +272,7 @@ var findResults = function() {
 };
 
 // Displays Players Choice
-$("#playerOneChoices").on("click", "div", function() {
+$("#playerOneChoices").on("click", "button", function() {
   var choice = $(this).text();
   $("#playerOneChoices").html("<img src='assets/images/" + choice + ".png'>");
   setTimeout(function() {
@@ -285,7 +285,7 @@ $("#playerOneChoices").on("click", "div", function() {
   }, 300);
 });
 
-$("#playerTwoChoices").on("click", "div", function() {
+$("#playerTwoChoices").on("click", "button", function() {
   var choice = $(this).text();
   $("#playerTwoChoices").html("<img src='assets/images/" + choice + "2.png'>");
   setTimeout(function() {
@@ -317,25 +317,25 @@ playerTurn.on("value", function(snapshot) {
     if (snapshot.val().turn == 1 && playerNumber == 1) {
       $("#playerOneChoices").empty();
       $("#playerOneChoices").append(
-        "<div class='btn-block btn-secondary choice'>ROCK</div>"
+        "<button class='btn-block btn-secondary choice'>ROCK</button>"
       );
       $("#playerOneChoices").append(
-        "<div class='btn-block btn-secondary choice'>PAPER</div>"
+        "<button class='btn-block btn-secondary choice'>PAPER</button>"
       );
       $("#playerOneChoices").append(
-        "<div class='btn-block btn-secondary choice'>SCISSORS</div>"
+        "<button class='btn-block btn-secondary choice'>SCISSORS</button>"
       );
       $("#gameMessage").html("<h3>- Your Turn -</h3>");
     } else if (snapshot.val().turn == 2 && playerNumber == 2) {
       $("#playerTwoChoices").empty();
       $("#playerTwoChoices").append(
-        "<div class='btn-block btn-secondary choice'>ROCK</div>"
+        "<button class='btn-block btn-secondary choice'>ROCK</button>"
       );
       $("#playerTwoChoices").append(
-        "<div class='btn-block btn-secondary choice'>PAPER</div>"
+        "<button class='btn-block btn-secondary choice'>PAPER</button>"
       );
       $("#playerTwoChoices").append(
-        "<div class='btn-block btn-secondary choice'>SCISSORS</div>"
+        "<button class='btn-block btn-secondary choice'>SCISSORS</button>"
       );
       $("#gameMessage").html("<h3>- Your Turn -</h3>");
     } else if (snapshot.val().turn == 3) {
