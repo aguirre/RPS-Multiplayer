@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Rock Paper Scissors!</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <img src="assets/images/rps.png" alt="Banner" id="banner" />
+        <div class="row">
+            <div class="col-md-4 playerHold form-control" id="playerOne">
+                <div id="playerOneName"></div>
+                <div id="playerOneChoices"></div>
+                <div id="playerOneWinLoss"></div>
+            </div>
+            <div class="col-md-4">
+                <div id="welcomeMessage"></div>
+                <div id="gameMessage"></div>
+            </div>
+            <div class="col-md-4 playerHold form-control" id="playerTwo">
+                <div id="playerTwoName"></div>
+                <div id="playerTwoChoices"></div>
+                <div id="playerTwoWinLoss"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-control" id="chatBox"></div>
+            </div>
+            <div class="col-md-4">
+                <form class="form-group">
+                    <textarea class="form-control" id="userChat" type="text" placeholder="Type Message" aria-label="Chat"
+                        rows="4"></textarea>
+                    <button class="btn-block btn-info my-2 my-sm-0" id="chatButton" type="submit">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="assets/javascript/games.js" type="text/javascript"></script>
+</body>
+
+</html>
