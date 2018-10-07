@@ -8,8 +8,8 @@ var config = {
   messagingSenderId: "320820250590"
 };
 firebase.initializeApp(config);
-// Game Variables
 var database = firebase.database();
+// Game Variables
 var playerTurn = database.ref();
 var players = database.ref("/players");
 var player1 = database.ref("/players/player1");
@@ -41,7 +41,7 @@ player1.on("value", function(snapshot) {
     losses1 = snapshot.val().losses;
     $("#playerOneName").html("<h2>" + p1 + "</h2>");
     $("#playerOneWinLoss").html(
-      "<p>Wins: " + wins1 + "  Losses: " + losses1 + "</p>"
+      "<br><p>Wins: " + wins1 + "  Losses: " + losses1 + "</p>"
     );
   } else {
     $("#playerOneName").html("Waiting for Player 1..");
@@ -64,7 +64,7 @@ player2.on("value", function(snapshot) {
     losses = snapshot.val().losses;
     $("#playerTwoName").html("<h2>" + p2 + "</h2>");
     $("#playerTwoWinLoss").html(
-      "<p>Wins: " + wins2 + "  Losses: " + losses2 + "</p>"
+      "<br><p>Wins: " + wins2 + "  Losses: " + losses2 + "</p>"
     );
   } else {
     $("#playerTwoName").html("Waiting for Player 2..");
@@ -120,3 +120,199 @@ $("#newPlayer").on("click", function() {
     $("#welcomeMessage").html("Wait for Player to disconnect..");
   }
 });
+
+// Reset Game when players disconnect
+players.on("value", function(snapshot) {
+  if (snapshot.val() == null) {
+    playerTurn.set({});
+  }
+});
+
+// Get Players Choice
+var findResults = function() {
+  player1.once("value", function(snapshot) {
+    p1result = snapshot;
+  });
+  player2.once("value", function(snapshot) {
+    p2result = snapshot;
+  });
+
+  // Game Section
+  if (p1result.val() !== null && p2result.val() !== null) {
+    if (p1result.val().choice == p2result.val().choice) {
+      $("#playerOneChoices").html("<h1>" + p1result.val().choice + "</h1>");
+      $("#playerTwoChoices").html("<h1>" + p2result.val().choice + "</h1>");
+      $("#gameMessage").html("<h1>Tie Game!</h1>");
+    } else if (
+      p1result.val().choice == "ROCK" &&
+      p2result.val().choice == "SCISSORS"
+    ) {
+      $("#playerOneChoices").html("<h1>" + p1result.val().choice + "</h1>");
+      $("#playerTwoChoices").html("<h1>" + p2result.val().choice + "</h1>");
+      $("#gameMessage").html("<h1>" + p1 + " wins!</h1>");
+      wins1++;
+      losses2++;
+    } else if (
+      p1result.val().choice == "PAPER" &&
+      p2result.val().choice == "ROCK"
+    ) {
+      $("#playerOneChoices").html("<h1>" + p1result.val().choice + "</h1>");
+      $("#playerTwoChoices").html("<h1>" + p2result.val().choice + "</h1>");
+      $("#gameMessage").html("<h1>" + p1 + " wins!</h1>");
+      wins1++;
+      losses2++;
+    } else if (
+      p1result.val().choice == "SCISSORS" &&
+      p2result.val().choice == "PAPER"
+    ) {
+      $("#playerOneChoices").html("<h1>" + p1result.val().choice + "</h1>");
+      $("#playerTwoChoices").html("<h1>" + p2result.val().choice + "</h1>");
+      $("#gameMessage").html("<h1>" + p1 + " wins!</h1>");
+      wins1++;
+      losses2++;
+    } else if (
+      p1result.val().choice == "ROCK" &&
+      p2result.val().choice == "PAPER"
+    ) {
+      $("#playerOneChoices").html("<h1>" + p1result.val().choice + "</h1>");
+      $("#playerTwoChoices").html("<h1>" + p2result.val().choice + "</h1>");
+      $("#gameMessage").html("<h1>" + p2 + " wins!</h1>");
+      wins2++;
+      losses1++;
+    } else if (
+      p1result.val().choice == "PAPER" &&
+      p2result.val().choice == "SCISSORS"
+    ) {
+      $("#playerOneChoices").html("<h1>" + p1result.val().choice + "</h1>");
+      $("#playerTwoChoices").html("<h1>" + p2result.val().choice + "</h1>");
+      $("#gameMessage").html("<h1>" + p2 + " wins!</h1>");
+      wins2++;
+      losses1++;
+    } else if (
+      p1result.val().choice == "SCISSORS" &&
+      p2result.val().choice == "ROCK"
+    ) {
+      $("#playerOneChoices").html("<h1>" + p1result.val().choice + "</h1>");
+      $("#playerTwoChoices").html("<h1>" + p2result.val().choice + "</h1>");
+      $("#gameMessage").html("<h1>" + p2 + " wins!</h1>");
+      wins2++;
+      losses1++;
+    }
+
+    // Replay Game
+    setTimeout(function() {
+      playerTurn.update({
+        turn: 1
+      });
+      player1.once("value", function(snapshot) {
+        p1result = snapshot;
+      });
+      if (p1result.val() !== null) {
+        player1.update({
+          wins: wins1,
+          losses: losses1
+        });
+      }
+      player2.once("value", function(snapshot) {
+        p2result = snapshot;
+      });
+      if (p2result.val() !== null) {
+        player2.update({
+          wins: wins2,
+          losses: losses2
+        });
+      }
+      $("#gameMessage").html("");
+      $("#playerTwoChoices").html("");
+    }, 3000);
+  }
+};
+
+// Database Update
+playerTurn.on("value", function(snapshot) {
+  if (snapshot.val() !== null) {
+    if (snapshot.val().turn == 2 && playerNum == 1) {
+      $("#gameMessage").html("Waiting for " + p2 + " to choose..");
+    } else if (snapshot.val().turn == 1 && playerNum == 2) {
+      $("#playerOneChoices").html("");
+      $("#gameMessage").html("Waiting for " + p1 + " to choose..");
+    }
+    if (snapshot.val().turn == 1 && playerNum == 1) {
+      $("#playerOneChoices").empty();
+      $("#playerOneChoices").append(
+        "<div class='btn-block btn-secondary choice'>ROCK</div>"
+      );
+      $("#playerOneChoices").append(
+        "<div class='btn-block btn-secondary choice'>PAPER</div>"
+      );
+      $("#playerOneChoices").append(
+        "<div class='btn-block btn-secondary choice'>SCISSORS</div>"
+      );
+      $("#gameMessage").html("- Your Turn -");
+    } else if (snapshot.val().turn == 2 && playerNum == 2) {
+      $("#playerTwoChoices").empty();
+      $("#playerTwoChoices").append(
+        "<div class='btn-block btn-secondary choice'>ROCK</div>"
+      );
+      $("#playerTwoChoices").append(
+        "<div class='btn-block btn-secondary choice'>PAPER</div>"
+      );
+      $("#playerTwoChoices").append(
+        "<div class='btn-block btn-secondary choice'>SCISSORS</div>"
+      );
+      $("#gameMessage").html("- Your Turn -");
+    } else if (snapshot.val().turn == 3) {
+      $("#gameMessage").html("");
+      findResults();
+    }
+  }
+});
+
+// Displays Players Choice
+$("#playerOneChoices").on("click", "div", function() {
+  var choice = $(this).text();
+  $("#playerOneChoices").html("<h1>" + choice + "</h1>");
+  setTimeout(function() {
+    playerTurn.update({
+      turn: 2
+    });
+    player1.update({
+      choice: choice
+    });
+  }, 500);
+});
+$("#playerTwoChoices").on("click", "div", function() {
+  var choice = $(this).text();
+  $("#playerTwoChoices").html("<h1>" + choice + "</h1>");
+  setTimeout(function() {
+    player2.update({
+      choice: choice
+    });
+    playerTurn.update({
+      turn: 3
+    });
+  }, 500);
+});
+
+// Chat Functions
+$("#chatButton").on("click", function(event) {
+  event.preventDefault();
+  var text = $("#userChat")
+    .val()
+    .trim();
+  if (text !== "") {
+    $("#userChat").val("");
+    database.ref("/chat/").push({
+      player: player + ": ",
+      chat: text,
+      dateAdded: firebase.database.ServerValue.TIMESTAMP
+    });
+  }
+});
+
+database
+  .ref("/chat")
+  .orderByChild("dateAdded")
+  .on("child_added", function(snapshot) {
+    $("#chatBox").append(snapshot.val().player + snapshot.val().chat + "<br>");
+  });
