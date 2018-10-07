@@ -13,6 +13,10 @@ img {
   max-width: 100%;
   height: auto;
 }
+p {
+  display: inline;
+  margin: 20px;
+}
 .container {
   text-align: center;
 }
@@ -34,7 +38,8 @@ img {
   margin-top: 20px;
 }
 #playerOne,
-#playerTwo {
+#playerTwo,
+#messageBox {
   margin-top: 20px;
   height: 200px;
 }
