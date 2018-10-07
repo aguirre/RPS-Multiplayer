@@ -40,12 +40,12 @@ player1.on("value", function(snapshot) {
     wins1 = snapshot.val().wins;
     loss1 = snapshot.val().losses;
     $("#playerOneName").html("<h3>" + p1 + "</h3>");
-    $("#playerOneWinLoss").html(
-      "<br><p>[ Wins: " + wins1 + " ][ Losses: " + loss1 + " ]</p>"
+    $("#playerOneScore").html(
+      "<p>[ Wins: " + wins1 + " ][ Losses: " + loss1 + " ]</p>"
     );
   } else {
     $("#playerOneName").html("Waiting for Player 1..");
-    $("#playerOneWinLoss").empty();
+    $("#playerOneScore").empty();
     if (p1 !== null) {
       database.ref("/chat/").push({
         player: p1,
@@ -63,12 +63,12 @@ player2.on("value", function(snapshot) {
     wins2 = snapshot.val().wins;
     losses = snapshot.val().losses;
     $("#playerTwoName").html("<h3>" + p2 + "</h3>");
-    $("#playerTwoWinLoss").html(
-      "<br><p>[ Wins: " + wins2 + " ][ Losses: " + loss2 + " ]</p>"
+    $("#playerTwoScore").html(
+      "<p>[ Wins: " + wins2 + " ][ Losses: " + loss2 + " ]</p>"
     );
   } else {
     $("#playerTwoName").html("Waiting for Player 2..");
-    $("#playerTwoWinLoss").empty();
+    $("#playerTwoScore").empty();
     if (p2 !== null) {
       database.ref("/chat/").push({
         player: p2,

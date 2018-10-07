@@ -41,3 +41,7 @@ img {
 #banner {
   margin-bottom: 20px;
 }
+#playerOneScore,
+#playerTwoScore {
+  margin-top: 10px;
+}
