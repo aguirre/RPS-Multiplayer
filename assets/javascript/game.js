@@ -267,3 +267,29 @@ playerTurn.on("value", function(snapshot) {
     }
   }
 });
+
+// Displays Players Choice
+$("#playerOneChoices").on("click", "div", function() {
+  var choice = $(this).text();
+  $("#playerOneChoices").html("<img src='assets/images/" + choice + ".png'>");
+  setTimeout(function() {
+    playerTurn.update({
+      turn: 2
+    });
+    player1.update({
+      choice: choice
+    });
+  }, 500);
+});
+$("#playerTwoChoices").on("click", "div", function() {
+  var choice = $(this).text();
+  $("#playerTwoChoices").html("<img src='assets/images/" + choice + "2.png'>");
+  setTimeout(function() {
+    player2.update({
+      choice: choice
+    });
+    playerTurn.update({
+      turn: 3
+    });
+  }, 500);
+});
