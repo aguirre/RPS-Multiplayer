@@ -44,7 +44,7 @@ player1.on("value", function(snapshot) {
       "<p>Wins: " + wins1 + "  Losses: " + losses1 + "</p>"
     );
   } else {
-    $("#playerOneName").html("Waiting for Player 1...");
+    $("#playerOneName").html("Waiting for Player 1..");
     $("#playerOneWinLoss").empty();
     if (p1 !== null) {
       database.ref("/chat/").push({
@@ -67,7 +67,7 @@ player2.on("value", function(snapshot) {
       "<p>Wins: " + wins2 + "  Losses: " + losses2 + "</p>"
     );
   } else {
-    $("#playerTwoName").html("Waiting for Player 2...");
+    $("#playerTwoName").html("Waiting for Player 2..");
     $("#playerTwoWinLoss").empty();
     if (p2 !== null) {
       database.ref("/chat/").push({
@@ -76,5 +76,47 @@ player2.on("value", function(snapshot) {
         dateAdded: firebase.database.ServerValue.TIMESTAMP
       });
     }
+  }
+});
+
+// Assign Players
+$("#newPlayer").on("click", function() {
+  event.preventDefault();
+  player = $("#playerName")
+    .val()
+    .trim();
+  player1.once("value", function(snapshot) {
+    p1snapshot = snapshot;
+  });
+  player2.once("value", function(snapshot) {
+    p2snapshot = snapshot;
+  });
+  if (!p1snapshot.exists()) {
+    playerNum = 1;
+    player1.onDisconnect().remove();
+    player1.set({
+      player: player,
+      wins: 0,
+      losses: 0
+    });
+    $("#welcomeMessage").html("Player One: " + player);
+    if (!p2snapshot.exists()) {
+      $("#gameMessage").html("Waiting for Player 2 to join..");
+    }
+  } else if (!p2snapshot.exists()) {
+    playerNum = 2;
+    player2.onDisconnect().remove();
+    player2.set({
+      player: player,
+      wins: 0,
+      losses: 0
+    });
+    playerTurn.update({
+      turn: 1
+    });
+    $("#welcomeMessage").html("Player Two: " + player);
+    $("#gameMessage").html("Waiting for " + p1 + " to choose..");
+  } else {
+    $("#welcomeMessage").html("Wait for Player to disconnect..");
   }
 });
