@@ -30,11 +30,6 @@ var ties1 = 0;
 var ties2 = 0;
 var playerNumber = 0;
 
-// Creates area for player to enter their name
-$("#nameForm").html(
-  "<input id='playerName' type='text' class='form-control' placeholder='Enter Name Here'><input id='newPlayer' type='submit' class='btn-block btn-success' value='Start'>"
-);
-
 // Player 1 Listeners
 player1.on("value", function(snapshot) {
   if (snapshot.val() !== null) {
@@ -108,10 +103,10 @@ $("#newPlayer").on("click", function() {
     p2snapshot = snapshot;
   });
   if (!p1snapshot.exists()) {
-    playerNumber = 1;
     if (player == "") {
       player = "Player 1";
     }
+    playerNumber = 1;
     player1.onDisconnect().remove();
     player1.set({
       player: player,
@@ -119,15 +114,15 @@ $("#newPlayer").on("click", function() {
       losses: 0,
       ties: 0
     });
-    $("#nameForm").hide();
+    $("#nameBox").hide();
     if (!p2snapshot.exists()) {
       $("#gameMessage").html("<h4>Waiting for Player 2 to join..</h4>");
     }
   } else if (!p2snapshot.exists()) {
-    playerNumber = 2;
     if (player == "") {
       player = "Player 2";
     }
+    playerNumber = 2;
     player2.onDisconnect().remove();
     player2.set({
       player: player,
@@ -138,12 +133,10 @@ $("#newPlayer").on("click", function() {
     playerTurn.update({
       turn: 1
     });
-    $("#nameForm").hide();
+    $("#nameBox").hide();
     $("#gameMessage").html("<h4>Waiting for " + p1 + " to choose..</h4>");
   } else {
-    $("#nameForm").html(
-      "<h4>Game Full!<br>Wait for Player to disconnect..<h4>"
-    );
+    $("#nameBox").html("<h4>Game Full!<br>Wait for Player to disconnect..<h4>");
   }
 });
 

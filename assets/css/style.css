@@ -4,11 +4,6 @@ body {
   text-shadow: 2px 2px 4px #000;
   background: url("../images/bg.png");
 }
-button {
-  text-shadow: 2px 2px 4px #000;
-  margin-bottom: 5px;
-  margin-top: 5px;
-}
 img {
   max-width: 100%;
   height: auto;
@@ -20,18 +15,22 @@ p {
 .container {
   text-align: center;
 }
+#newPlayer,
+#sendButton {
+  text-shadow: 2px 2px 4px #000;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
 #chatBox,
 #userChat,
+#playerName,
 #playerOne,
 #playerTwo {
   color: #fff;
   background-color: rgba(51, 51, 51, 0.8);
 }
+#chatBox,
 #userChat {
-  margin-top: 20px;
-  width: 100%;
-}
-#chatBox {
   text-align: left;
   width: 100%;
   height: 100%;
@@ -48,5 +47,5 @@ p {
 }
 #playerOneScore,
 #playerTwoScore {
-  margin-top: 10px;
+  margin-bottom: 10px;
 }
