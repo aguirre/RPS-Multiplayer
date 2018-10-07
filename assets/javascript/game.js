@@ -30,7 +30,7 @@ var playerNumber = 0;
 
 // Creates area for player to enter their name
 $("#welcomeMessage").html(
-  "<input id=playerName type=text placeholder='Enter Name Here'><input id=newPlayer type=submit class ='btn btn-success' value=Start>"
+  "<input id='playerName' type='text' placeholder='Enter Name Here'><input id='newPlayer' type='submit' class='btn btn-success' value='Start'>"
 );
 
 // Player 1 Updates
