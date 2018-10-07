@@ -9,6 +9,7 @@ var config = {
 };
 firebase.initializeApp(config);
 var database = firebase.database();
+
 // Game Variables
 var playerTurn = database.ref();
 var players = database.ref("/players");
@@ -38,9 +39,9 @@ player1.on("value", function(snapshot) {
     p1 = snapshot.val().player;
     wins1 = snapshot.val().wins;
     loss1 = snapshot.val().losses;
-    $("#playerOneName").html("<h2>" + p1 + "</h2>");
+    $("#playerOneName").html("<h3>" + p1 + "</h3>");
     $("#playerOneWinLoss").html(
-      "<br><p>Wins: " + wins1 + "  Losses: " + loss1 + "</p>"
+      "<br><p>[ Wins: " + wins1 + " ][ Losses: " + loss1 + " ]</p>"
     );
   } else {
     $("#playerOneName").html("Waiting for Player 1..");
@@ -61,9 +62,9 @@ player2.on("value", function(snapshot) {
     p2 = snapshot.val().player;
     wins2 = snapshot.val().wins;
     losses = snapshot.val().losses;
-    $("#playerTwoName").html("<h2>" + p2 + "</h2>");
+    $("#playerTwoName").html("<h3>" + p2 + "</h3>");
     $("#playerTwoWinLoss").html(
-      "<br><p>Wins: " + wins2 + "  Losses: " + loss2 + "</p>"
+      "<br><p>[ Wins: " + wins2 + " ][ Losses: " + loss2 + " ]</p>"
     );
   } else {
     $("#playerTwoName").html("Waiting for Player 2..");
@@ -145,7 +146,7 @@ var findResults = function() {
       $("#playerTwoChoices").html(
         "<img src='assets/images/" + p2result.val().choice + "2.png'>"
       );
-      $("#gameMessage").html("<h1>Tie Game!</h1>");
+      $("#gameMessage").html("<h2>Tie Game!</h2>");
     } else if (
       p1result.val().choice == "ROCK" &&
       p2result.val().choice == "SCISSORS"
@@ -156,7 +157,7 @@ var findResults = function() {
       $("#playerTwoChoices").html(
         "<img src='assets/images/" + p2result.val().choice + "2.png'>"
       );
-      $("#gameMessage").html("<h1>" + p1 + " wins!</h1>");
+      $("#gameMessage").html("<h2>" + p1 + " wins!</h2>");
       wins1++;
       loss2++;
     } else if (
@@ -169,7 +170,7 @@ var findResults = function() {
       $("#playerTwoChoices").html(
         "<img src='assets/images/" + p2result.val().choice + "2.png'>"
       );
-      $("#gameMessage").html("<h1>" + p1 + " wins!</h1>");
+      $("#gameMessage").html("<h2>" + p1 + " wins!</h2>");
       wins1++;
       loss2++;
     } else if (
@@ -182,7 +183,7 @@ var findResults = function() {
       $("#playerTwoChoices").html(
         "<img src='assets/images/" + p2result.val().choice + "2.png'>"
       );
-      $("#gameMessage").html("<h1>" + p1 + " wins!</h1>");
+      $("#gameMessage").html("<h2>" + p1 + " wins!</h2>");
       wins1++;
       loss2++;
     } else if (
@@ -195,7 +196,7 @@ var findResults = function() {
       $("#playerTwoChoices").html(
         "<img src='assets/images/" + p2result.val().choice + "2.png'>"
       );
-      $("#gameMessage").html("<h1>" + p2 + " wins!</h1>");
+      $("#gameMessage").html("<h2>" + p2 + " wins!</h2>");
       wins2++;
       loss1++;
     } else if (
@@ -208,7 +209,7 @@ var findResults = function() {
       $("#playerTwoChoices").html(
         "<img src='assets/images/" + p2result.val().choice + "2.png'>"
       );
-      $("#gameMessage").html("<h1>" + p2 + " wins!</h1>");
+      $("#gameMessage").html("<h2>" + p2 + " wins!</h2>");
       wins2++;
       loss1++;
     } else if (
@@ -221,7 +222,7 @@ var findResults = function() {
       $("#playerTwoChoices").html(
         "<img src='assets/images/" + p2result.val().choice + "2.png'>"
       );
-      $("#gameMessage").html("<h1>" + p2 + " wins!</h1>");
+      $("#gameMessage").html("<h2>" + p2 + " wins!</h2>");
       wins2++;
       loss1++;
     }
@@ -275,7 +276,7 @@ playerTurn.on("value", function(snapshot) {
       $("#playerOneChoices").append(
         "<div class='btn-block btn-secondary choice'>SCISSORS</div>"
       );
-      $("#gameMessage").html("- Your Turn -");
+      $("#gameMessage").html("<h2>- Your Turn -</h2>");
     } else if (snapshot.val().turn == 2 && playerNumber == 2) {
       $("#playerTwoChoices").empty();
       $("#playerTwoChoices").append(
@@ -287,7 +288,7 @@ playerTurn.on("value", function(snapshot) {
       $("#playerTwoChoices").append(
         "<div class='btn-block btn-secondary choice'>SCISSORS</div>"
       );
-      $("#gameMessage").html("- Your Turn -");
+      $("#gameMessage").html("<h2>- Your Turn -</h2>");
     } else if (snapshot.val().turn == 3) {
       $("#gameMessage").html("");
       findResults();
@@ -306,7 +307,7 @@ $("#playerOneChoices").on("click", "div", function() {
     player1.update({
       choice: choice
     });
-  }, 500);
+  }, 300);
 });
 $("#playerTwoChoices").on("click", "div", function() {
   var choice = $(this).text();
@@ -318,7 +319,7 @@ $("#playerTwoChoices").on("click", "div", function() {
     playerTurn.update({
       turn: 3
     });
-  }, 500);
+  }, 300);
 });
 
 // Chat Functions
