@@ -109,6 +109,9 @@ $("#newPlayer").on("click", function() {
   });
   if (!p1snapshot.exists()) {
     playerNumber = 1;
+    if (player == "") {
+      player = "Player 1";
+    }
     player1.onDisconnect().remove();
     player1.set({
       player: player,
@@ -122,6 +125,9 @@ $("#newPlayer").on("click", function() {
     }
   } else if (!p2snapshot.exists()) {
     playerNumber = 2;
+    if (player == "") {
+      player = "Player 2";
+    }
     player2.onDisconnect().remove();
     player2.set({
       player: player,
