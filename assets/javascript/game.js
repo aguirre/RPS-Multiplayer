@@ -325,7 +325,7 @@ playerTurn.on("value", function(snapshot) {
       $("#playerOneChoices").append(
         "<button class='btn-block btn-secondary choice'>SCISSORS</button>"
       );
-      $("#gameMessage").html("<h3>- Your Turn -</h3>");
+      $("#gameMessage").html("<h3>Your Move!</h3>");
     } else if (snapshot.val().turn == 2 && playerNumber == 2) {
       $("#playerTwoChoices").empty();
       $("#playerTwoChoices").append(
@@ -337,7 +337,7 @@ playerTurn.on("value", function(snapshot) {
       $("#playerTwoChoices").append(
         "<button class='btn-block btn-secondary choice'>SCISSORS</button>"
       );
-      $("#gameMessage").html("<h3>- Your Turn -</h3>");
+      $("#gameMessage").html("<h3>Your Move!</h3>");
     } else if (snapshot.val().turn == 3) {
       $("#gameMessage").html("");
       findResults();
