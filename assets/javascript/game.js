@@ -51,7 +51,7 @@ player1.on("value", function(snapshot) {
     $("#playerOneName").html("<h4>Waiting for Player 1..</h4>");
     $("#playerOneScore").empty();
     if (p1 !== null) {
-      database.ref.once("/chat/").push({
+      database.ref("/chat/").push({
         player: p1,
         chat: " has disconnected.",
         dateAdded: firebase.database.ServerValue.TIMESTAMP
@@ -81,7 +81,7 @@ player2.on("value", function(snapshot) {
     $("#playerTwoName").html("<h4>Waiting for Player 2..</h4>");
     $("#playerTwoScore").empty();
     if (p2 !== null) {
-      database.ref.once("/chat/").push({
+      database.ref("/chat/").push({
         player: p2,
         chat: " has disconnected.",
         dateAdded: firebase.database.ServerValue.TIMESTAMP
